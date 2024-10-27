@@ -45,3 +45,13 @@ h1, h2 {
     color: #333;
 }
 
+img {
+    width: 100%; /* Ensures the image takes up the full width of its container */
+    height: auto; /* Maintains the image's aspect ratio */
+}
+
+.image-class {
+    object-fit: cover; /* Crops the image while maintaining its aspect ratio */
+    width: 100%; /* Adjust the width as per your layout */
+    height: auto; /* Automatically adjusts the height */
+}
