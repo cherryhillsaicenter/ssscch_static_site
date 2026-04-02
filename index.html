@@ -1,308 +1,1038 @@
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cherry Hill Sai Center</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-        crossorigin="anonymous">
-    <link rel="stylesheet" 
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sri Sathya Sai Center of Cherry Hill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== DESIGN TOKENS (aligned with sathyasai.org) ===== */
+    :root {
+      --saffron:       #E07714;   /* SSSIO primary orange */
+      --saffron-light: #F5894A;
+      --saffron-pale:  #FFF3E8;
+      --blue:          #1F3550;   /* SSSIO dark navy */
+      --blue-mid:      #2A4A6B;
+      --blue-pale:     #E8EEF4;
+      --gold:          #C9960A;
+      --gold-light:    #F0C030;
+      --gold-pale:     #FFFBE8;
+      --white:         #FFFFFF;
+      --off-white:     #F7F7F7;
+      --text-dark:     #1F3550;   /* SSSIO dark navy for body text */
+      --text-mid:      #4A5568;
+      --text-light:    #718096;
+      --border:        #E2E8F0;
+      --shadow-sm:     0 2px 12px rgba(31,53,80,0.08);
+      --shadow-md:     0 8px 32px rgba(31,53,80,0.12);
+      --shadow-lg:     0 20px 60px rgba(31,53,80,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--text-dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .tag--saffron { background: var(--saffron-pale); color: var(--saffron); }
+    .tag--blue    { background: var(--blue-pale);    color: var(--blue);    }
+    .tag--gold    { background: var(--gold-pale);    color: var(--gold);    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(12px);
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; max-width: 1160px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav__brand { display: flex; align-items: center; gap: 14px; }
+    .nav__logo-img {
+      width: 52px; height: 52px;
+      object-fit: contain; flex-shrink: 0;
+    }
+    .nav__name { line-height: 1.2; }
+    .nav__name strong {
+      display: block; font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem; color: var(--saffron);
+      font-weight: 800; letter-spacing: 0.01em;
+    }
+    .nav__name span {
+      font-size: 0.7rem; color: var(--saffron);
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700;
+    }
+    .nav__links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav__links a {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-mid);
+      letter-spacing: 0.04em; transition: color 0.2s; position: relative;
+    }
+    .nav__links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; border-radius: 1px; background: var(--saffron);
+      transform: scaleX(0); transition: transform 0.25s;
+    }
+    .nav__links a:hover { color: var(--saffron); }
+    .nav__links a:hover::after { transform: scaleX(1); }
+    .nav__events {
+      background: var(--gold-pale); color: var(--gold) !important;
+      padding: 7px 16px; border-radius: 20px;
+      font-weight: 700 !important; font-size: 0.82rem !important;
+      border: 1.5px solid rgba(201,150,10,0.3);
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav__events:hover { background: var(--gold-pale) !important; border-color: var(--gold) !important; color: var(--gold) !important; }
+    .nav__events::after { display: none !important; }
+    .nav__cta {
+      background: var(--saffron); color: white !important;
+      padding: 9px 20px; border-radius: 24px;
+      font-weight: 700 !important; font-size: 0.82rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav__cta:hover { background: var(--saffron-light) !important; }
+    .nav__cta::after { display: none !important; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(232,98,26,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(27,58,140,0.1) 0%, transparent 55%),
+        linear-gradient(160deg, #1A2560 0%, #0F1A45 40%, #1B1535 100%);
+      display: flex; align-items: center;
+      padding-top: 72px; position: relative; overflow: hidden;
+    }
+    .hero__bg-pattern {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        radial-gradient(circle at 25% 25%, var(--gold-light) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, var(--saffron-light) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero__inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      padding: 80px 24px; max-width: 1160px; margin: 0 auto; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .hero__kicker {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-light);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .hero__kicker::before {
+      content: ''; width: 30px; height: 2px;
+      background: var(--gold-light); border-radius: 1px;
+    }
+    .hero h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 700; color: white; line-height: 1.2; margin-bottom: 12px;
+    }
+    .hero__subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      color: var(--gold-light);
+      margin-bottom: 24px; line-height: 1.5;
+    }
+    .hero__location {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 36px;
+    }
+    .hero__location-icon {
+      font-size: 1rem; margin-top: 2px; flex-shrink: 0; opacity: 0.8;
+    }
+    .hero__location a {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+      line-height: 1.5; transition: color 0.2s;
+    }
+    .hero__location a:hover { color: var(--saffron-light); }
+    .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 32px;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em;
+      transition: all 0.25s; cursor: pointer; border: none;
+    }
+    .btn--primary {
+      background: linear-gradient(135deg, var(--saffron), #D04E0E);
+      color: white; box-shadow: 0 4px 20px rgba(232,98,26,0.45);
+    }
+    .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,98,26,0.5); }
+    .btn--outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
+    .btn--outline:hover { background: rgba(255,255,255,0.08); border-color: white; }
+    .btn--gold {
+      background: linear-gradient(135deg, var(--gold), #A87B05);
+      color: white; box-shadow: 0 4px 20px rgba(201,150,10,0.4);
+    }
+    .btn--gold:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,150,10,0.5); }
+
+    /* Hero visual panel */
+    .hero__visual {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 28px;
+    }
+    .hero__emblem {
+      width: 270px; height: 270px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, rgba(232,98,26,0.22), transparent 65%),
+                  radial-gradient(circle at 60% 65%, rgba(201,150,10,0.18), transparent 60%),
+                  rgba(255,255,255,0.04);
+      border: 2px solid rgba(201,150,10,0.3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      box-shadow: 0 0 60px rgba(201,150,10,0.15), 0 0 120px rgba(232,98,26,0.1);
+      position: relative;
+    }
+    .hero__emblem::before {
+      content: ''; position: absolute; inset: -12px;
+      border-radius: 50%; border: 1px solid rgba(201,150,10,0.18);
+    }
+    .hero__emblem::after {
+      content: ''; position: absolute; inset: -24px;
+      border-radius: 50%; border: 1px solid rgba(201,150,10,0.08);
+    }
+    .hero__emblem-icon { font-size: 3.4rem; line-height: 1; margin-bottom: 10px; }
+    .hero__emblem-name {
+      font-family: 'Open Sans', sans-serif; font-size: 0.95rem;
+      color: var(--gold-light); letter-spacing: 0.1em; font-weight: 600;
+    }
+    .hero__emblem-sub {
+      font-size: 0.68rem; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px;
+    }
+    .hero__mission-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,150,10,0.25);
+      border-radius: 16px; padding: 22px 28px;
+      text-align: center; max-width: 300px;
+      backdrop-filter: blur(8px);
+    }
+    .hero__mission-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 8px;
+    }
+    .hero__mission-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 0.95rem;
+      color: rgba(255,255,255,0.85); line-height: 1.6;
+    }
+
+    /* ===== SECTION BASE ===== */
+    .section { padding: 88px 24px; }
+    .section--alt { background: white; }
+    .section--dark {
+      background: linear-gradient(160deg, #0F1A45 0%, #1A2560 100%);
+      color: white;
+    }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+      font-weight: 800; color: var(--saffron); line-height: 1.2; margin-bottom: 14px;
+    }
+    .section--dark .section-header h2 { color: white; }
+    .section-header p {
+      font-size: 1rem; color: var(--text-light);
+      max-width: 600px; margin: 0 auto;
+    }
+    .section--dark .section-header p { color: rgba(255,255,255,0.65); }
+    .section-header__line {
+      width: 52px; height: 3px;
+      background: linear-gradient(90deg, var(--saffron), var(--gold-light));
+      border-radius: 2px; margin: 18px auto 0;
+    }
+
+    /* ===== ABOUT ===== */
+    .about__grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center; max-width: 1160px; margin: 0 auto;
+    }
+    .about__content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+      font-weight: 800; color: var(--saffron); line-height: 1.2; margin-bottom: 18px;
+    }
+    .about__content p { color: var(--text-mid); margin-bottom: 16px; font-size: 1rem; }
+    .about__quote-card {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+      border-radius: 20px; padding: 40px 36px;
+      color: white; position: relative; overflow: hidden;
+    }
+    .about__quote-card::before {
+      content: '"'; position: absolute; top: -20px; left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem; color: rgba(255,255,255,0.06); line-height: 1;
+    }
+    .about__quote-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.1rem; line-height: 1.7; margin-bottom: 16px;
+      color: rgba(255,255,255,0.9);
+    }
+    .about__quote-author {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold-light);
+    }
+
+    /* ===== SERVICES ===== */
+    .services__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; max-width: 1160px; margin: 0 auto;
+    }
+    .service-card {
+      background: white; border-radius: 20px;
+      overflow: hidden; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .service-card__top {
+      padding: 32px 28px 0;
+    }
+    .service-card__icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 18px;
+    }
+    .service-card__icon--s { background: var(--saffron-pale); }
+    .service-card__icon--b { background: var(--blue-pale); }
+    .service-card__icon--g { background: var(--gold-pale); }
+    .service-card h3 {
+      font-family: 'Open Sans', sans-serif; font-size: 1rem;
+      font-weight: 700; color: var(--blue); margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+    .service-card__footer {
+      margin-top: 20px; padding: 16px 28px;
+      background: var(--off-white); border-top: 1px solid var(--border);
+    }
+    .service-card__detail {
+      font-size: 0.8rem; color: var(--text-light);
+      display: flex; align-items: center; gap: 7px;
+    }
+
+    /* ===== DEVOTION ===== */
+    .devotion {
+      background: linear-gradient(160deg, #0F1A45 0%, #1A2560 100%);
+      padding: 88px 24px;
+    }
+    .devotion__inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .devotion__content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+      font-weight: 700; color: white; line-height: 1.2; margin-bottom: 18px;
+    }
+    .devotion__content p { color: rgba(255,255,255,0.7); margin-bottom: 14px; font-size: 1rem; }
+    .devotion__schedule {
+      display: flex; flex-direction: column; gap: 16px; margin-top: 28px;
+    }
+    .devotion__slot {
+      display: flex; gap: 18px; align-items: flex-start;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 18px 22px;
+      backdrop-filter: blur(8px);
+    }
+    .devotion__slot-time {
+      flex-shrink: 0; min-width: 110px;
+      font-family: 'Open Sans', sans-serif; font-size: 0.82rem;
+      font-weight: 700; color: var(--gold-light);
+      letter-spacing: 0.04em; padding-top: 2px;
+    }
+    .devotion__slot-name {
+      font-weight: 700; font-size: 0.95rem; color: white; margin-bottom: 2px;
+    }
+    .devotion__slot-desc { font-size: 0.83rem; color: rgba(255,255,255,0.55); }
+    .devotion__visual {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .devotion__quote {
+      background: rgba(255,255,255,0.06);
+      border-left: 4px solid var(--saffron);
+      border-radius: 0 16px 16px 0;
+      padding: 28px 28px 28px 24px;
+    }
+    .devotion__quote-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 12px;
+    }
+    .devotion__quote-source {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold-light);
+    }
+
+    /* ===== SSE ===== */
+    .sse { background: var(--off-white); padding: 88px 24px; }
+    .sse__inner { max-width: 1160px; margin: 0 auto; }
+    .sse__grid {
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 64px; align-items: start;
+    }
+    .sse__content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+      font-weight: 800; color: var(--saffron); line-height: 1.2; margin-bottom: 18px;
+    }
+    .sse__quote {
+      background: white; border-radius: 14px;
+      padding: 22px 24px; margin-bottom: 16px;
+      border-left: 4px solid var(--saffron);
+      box-shadow: var(--shadow-sm);
+    }
+    .sse__quote p {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.92rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 8px;
+    }
+    .sse__quote cite {
+      font-size: 0.72rem; font-weight: 700; font-style: normal;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--saffron);
+    }
+    .sse__timing {
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      border-radius: 16px; padding: 28px;
+      color: white; margin-bottom: 18px;
+    }
+    .sse__timing-header {
+      font-family: 'Open Sans', sans-serif; font-size: 1rem;
+      font-weight: 700; color: white; margin-bottom: 4px;
+    }
+    .sse__timing-sub {
+      font-size: 0.85rem; color: var(--gold-light); margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .sse__groups { display: flex; flex-direction: column; gap: 10px; }
+    .sse__group {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 10px 14px;
+    }
+    .sse__group-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold-light); flex-shrink: 0;
+    }
+    .sse__group-name { font-size: 0.88rem; color: white; font-weight: 600; }
+    .sse__certified {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      background: var(--saffron-pale);
+      border-radius: 12px;
+      border: 1px solid rgba(232,98,26,0.2);
+    }
+    .sse__certified .icon { font-size: 1.2rem; }
+    .sse__certified p { font-size: 0.85rem; color: var(--text-mid); }
+    .sse__certified strong { color: var(--saffron); }
+
+    /* ===== YOUNG ADULTS ===== */
+    .ya {
+      background: white; padding: 88px 24px;
+    }
+    .ya__inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .ya__content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+      font-weight: 800; color: var(--saffron); line-height: 1.2; margin-bottom: 18px;
+    }
+    .ya__content p { color: var(--text-mid); margin-bottom: 16px; font-size: 0.97rem; }
+    .ya__baba-quote {
+      background: linear-gradient(135deg, #0F1A45, #1A2560);
+      border-radius: 20px; padding: 36px;
+      color: white; position: relative; overflow: hidden; margin-top: 28px;
+    }
+    .ya__baba-quote::before {
+      content: '"'; position: absolute; top: -15px; left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem; color: rgba(255,255,255,0.05); line-height: 1;
+    }
+    .ya__baba-quote .ya__baba-quote-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.88); margin-bottom: 16px;
+    }
+    .ya__baba-quote-source {
+      font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold-light);
+    }
+    .ya__highlights {
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .ya__highlight {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px 22px;
+      background: var(--off-white); border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .ya__highlight-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .ya__highlight-icon--s { background: var(--saffron-pale); }
+    .ya__highlight-icon--b { background: var(--blue-pale); }
+    .ya__highlight-icon--g { background: var(--gold-pale); }
+    .ya__highlight-title { font-weight: 700; font-size: 0.92rem; color: var(--blue); margin-bottom: 3px; }
+    .ya__highlight-desc { font-size: 0.83rem; color: var(--text-light); }
+
+    /* ===== EVENTS / CALENDAR ===== */
+    .events { background: var(--off-white); padding: 88px 24px; }
+    .events__inner { max-width: 1160px; margin: 0 auto; }
+    .events__calendar-wrap {
+      background: white;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .events__calendar-wrap iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact { background: white; padding: 88px 24px; }
+    .contact__inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: start;
+    }
+    .contact__info h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+      font-weight: 700; color: var(--blue); margin-bottom: 16px;
+    }
+    .contact__info p { color: var(--text-mid); margin-bottom: 28px; }
+    .contact__items { display: flex; flex-direction: column; gap: 14px; }
+    .contact__item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 18px; background: var(--off-white); border-radius: 12px;
+    }
+    .contact__item-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--saffron-pale); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .contact__item-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--saffron); margin-bottom: 2px;
+    }
+    .contact__item-value { font-size: 0.92rem; color: var(--text-dark); font-weight: 600; }
+    .contact__item-value a { color: var(--blue); transition: color 0.2s; }
+    .contact__item-value a:hover { color: var(--saffron); }
+    .contact__card {
+      background: var(--off-white); border-radius: 20px;
+      padding: 36px 32px; border: 1px solid var(--border);
+    }
+    .contact__card h3 {
+      font-family: 'Open Sans', sans-serif; font-size: 1.2rem;
+      color: var(--blue); margin-bottom: 16px;
+    }
+    .contact__card p { font-size: 0.92rem; color: var(--text-mid); margin-bottom: 20px; }
+    .contact__email-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--saffron), #D04E0E);
+      color: white; border-radius: 12px;
+      font-weight: 700; font-size: 0.9rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(232,98,26,0.35);
+    }
+    .contact__email-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(232,98,26,0.45); }
+
+    /* ===== FOOTER ===== */
+    .footer { background: #0B1230; padding: 56px 24px 28px; }
+    .footer__inner { max-width: 1160px; margin: 0 auto; }
+    .footer__top {
+      display: grid; grid-template-columns: 1.8fr 1fr 1fr;
+      gap: 48px; margin-bottom: 40px;
+    }
+    .footer__brand h3 {
+      font-family: 'Open Sans', sans-serif; font-size: 1.05rem;
+      color: white; margin-bottom: 10px;
+    }
+    .footer__brand p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.55);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .footer__mantra {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.88rem; color: var(--gold-light);
+      padding: 12px 18px; border-left: 3px solid var(--saffron);
+      background: rgba(255,255,255,0.04); border-radius: 0 8px 8px 0;
+    }
+    .footer__col h4 {
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: white; margin-bottom: 16px;
+    }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer__col ul li a {
+      font-size: 0.84rem; color: rgba(255,255,255,0.55); transition: color 0.2s;
+    }
+    .footer__col ul li a:hover { color: var(--saffron-light); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .footer__copy { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    .footer__badge {
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; text-align: center; }
+      .hero__kicker { justify-content: center; }
+      .hero__location { justify-content: center; }
+      .hero__actions { justify-content: center; }
+      .hero__visual { display: none; }
+      .about__grid, .devotion__inner, .sse__grid,
+      .ya__inner, .contact__inner { grid-template-columns: 1fr; gap: 40px; }
+      .services__grid { grid-template-columns: 1fr; }
+      .footer__top { grid-template-columns: 1fr; }
+      .nav__links { display: none; }
+    }
+  </style>
 </head>
+<body>
 
-<body id="body">
-    <nav class="navbar navbar-expand-md border-bottom bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand d-md-none" href="#">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
-                aria-controls="offcanvas" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-                <div class="offcanvas-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-                    </button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav flex-grow-1 justify-content-between">
-                        <li class="nav-item"><a class="nav-link" href="#Home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#AboutUs">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Service">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Devotion">Devotion</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Sse">SSE</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#YAs">YAs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__brand">
+        <img src="https://www.sathyasai.org/sites/default/files/pages/organisation/logo/ssio-logo-english.png"
+             alt="SSSIO Logo" class="nav__logo-img" />
+        <div class="nav__name">
+          <strong>Sri Sathya Sai Center of Cherry Hill</strong>
+          <span>Cherry Hill, New Jersey</span>
         </div>
-    </nav>
+      </div>
+      <ul class="nav__links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#devotion">Devotion</a></li>
+        <li><a href="#sse">SSE</a></li>
+        <li><a href="#ya">Young Adults</a></li>
+        <li><a href="#events" class="nav__events">📅 Events</a></li>
+        <li><a href="#contact" class="nav__cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <main>
-        <div class="position-relative overflow-hidden m-3 bg-body-tertiary" id="Home">
-            <div class="row justify-content-center">
-                <div class="col-2 text-right align-self-center">
-                    <img src="images/logo.png" alt="Logo" style="max-width: 100px;" class="float-end" />
-                </div>
-                <div class="col-7 text-center">
-                    <h1 class="fw-bold">Sri Sathya Sai Center of Cherry Hill</h1>
-                    <h4 class="fw-normal text-muted mb-3">Embracing Love, Service, and Spiritual Growth</h4>
-                    <h7 class="fw-normal text-muted mb-3"> <a target="_blank"
-                        href="http://maps.google.com/?q=Unitarian Universalist Church 401 Kings Hwy N, Cherry Hill, NJ 08034">Unitarian
-                        Universalist Church 401 Kings Hwy N, Cherry Hill, NJ 08034</a></h7>
-                </div>
-                <div class="col-2 align-self-center">
-                    <img src="images/Ssb.jpg" alt="Logo" style="max-width: 100px;" class="float-start" />
-                </div>
-            </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg-pattern"></div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="hero__kicker">Cherry Hill, New Jersey</div>
+        <h1>Sri Sathya Sai Center<br/>of Cherry Hill</h1>
+        <p class="hero__subtitle">Embracing Love, Service, and Spiritual Growth</p>
+        <div class="hero__location">
+          <div class="hero__location-icon">📍</div>
+          <a href="https://maps.google.com/?q=Unitarian+Universalist+Church+401+Kings+Hwy+N+Cherry+Hill+NJ+08034" target="_blank" rel="noopener">
+            Unitarian Universalist Church<br/>401 Kings Hwy N, Cherry Hill, NJ 08034
+          </a>
         </div>
-        <div class="bg-body-tertiary text-center overflow-hidden m-3">
-            <div class="my-1">
-                <h2 class="display-5">Our Mission</h2>
-                <p class="lead fw-semibold">
-                    To foster a loving community through spiritual education and selfless service.
-                </p>
-            </div>
+        <div class="hero__actions">
+          <a href="#events" class="btn btn--gold">📅 Upcoming Events</a>
+          <a href="#services" class="btn btn--primary">Our Services</a>
+          <a href="#contact" class="btn btn--outline">Get in Touch</a>
         </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3">
-            <div class="row justify-content-between">
-                <div class="col">
-                    <h2 class="display-5">Upcoming Events</h2>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&bgcolor=%23ffffff&mode=AGENDA&src=Y2hlcnJ5aGlsbHNhaWNlbnRlckBnbWFpbC5jb20&color=%23c61600" style="border:solid 1px #777" width="700" height="400" frameborder="0" scrolling="no"></iframe>
-            </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__emblem">
+          <img src="https://www.sathyasai.org/sites/default/files/pages/organisation/logo/ssio-logo-english.png"
+               alt="SSSIO Sarva Dharma Logo"
+               style="width:200px;height:200px;object-fit:contain;filter:drop-shadow(0 4px 24px rgba(224,119,20,0.3));" />
         </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="AboutUs">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">About us</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                The Cherry Hill Sai Center is dedicated to promoting spiritual growth and community service. We follow the teachings of Sri Sathya Sai Baba and aim to create a loving and compassionate environment.
-            </div>
+        <div class="hero__mission-card">
+          <div class="hero__mission-label">Our Mission</div>
+          <div class="hero__mission-text">To foster a loving community through spiritual education and selfless service.</div>
         </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="Service">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">Our Services</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <ul>
-                    <li>Donation of Non Perishable Food Items</li>
-                    <li>Narayan Seva Third Saturday of the month</li>
-                    <li>Philadelphia Sandwich Seva Second and Fourth Saturday of the month</li>
-                </ul>
-            </div>
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h4 class="display-5">Recent Service Activities Pictures</h4>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div id="carouselExampleAutoplaying" class="carousel slide mb-3" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="images/latestservice1.jpeg" class="d-block w-80" alt="Image1"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice2.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice3.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>   
-                    <div class="carousel-item">
-                        <img src="images/latestservice4.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice5.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice6.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice7.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice8.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>   
-                    <div class="carousel-item">
-                        <img src="images/latestservice9.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/latestservice10.jpeg" class="d-block w-80" alt="Image2"
-                            style="max-height: 500px;">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="Devotion">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">Typical Weekly Devotional Program</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <ul>
-                    <li>3:30 - 4:40 PM Open Bhajans, Closing Prayers and Announcements</li>
-                    <li>4:40 - 5:30 PM Study Circle</li>
-                </ul> 
-            </div>
-            
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h6 class="display-5">Announcements</h6>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRp1_V4zYxeYmme_oqz_sB2wQ2z8V9QQjbx1DW38onMNefSNgLlcRkNRs3Ck_3_YQ/embed?start=false&loop=false&delayms=3000" frameborder="0" width="800" height="450" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-            </div>
-        </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="Sse">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">SSE</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="">
-                <p class="lead">
-                    "The end of education is character. Education without character is useless." -- Sathya Sai Baba,
-                    Prashanthi Nilayam, November 20, 2001.
-                </p>
-                <p class="lead">
-                    "Bal Vikas (Sai Spiritual Education) is the primary basis of the great movement to restore
-                    righteousness (dharma) in the world. The ideal of the program is to raise a generation of boys and
-                    girls who have a clean and a clear conscience."
-                </p>
-            </div>
-            <div id="carouselExampleAutoplaying" class="carousel slide mb-3" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="images/SSEBanner-e1593975500206.png" class="d-block w-90" alt="Image1"
-                            style="max-height: 400px;">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/with-small-children.jpg" class="d-block w-90" alt="Image2"
-                            style="max-height: 400px;">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <p class="fw-semibold">Cherry Hill SSE Timings and Details:</p>
-                <p>(Sai Spiritual Education) meets every Sunday from 2:00 - 3:15 pm!</p>
-                <ul>
-                    <li>Pre SSE (4 to 6 Yrs Old)</li>
-                    <li>Group 1 (1st, 2nd, 3rd Graders)</li>
-                    <li>Group 2 (4th, 5th , 6th Graders)</li>
-                    <li>Group 3 (7th, 8th, 9th Graders)</li>
-                    <li>Group 4 (10th, 11th , 12th Graders)</li>
-                    <li>Young Adults (18 to 40 yrs old)</li>
-                </ul>
-                All our teachers are certified in teaching SSE. If you need more information please contact
-                <a href="mailto:cherryhillsaicenter@gmail.com">cherryhillsaicenter@gmail.com</a>
-            </div>
-        </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="YAs">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">Sri Sathya Sai International Young Adults Program</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-                <div class="">
-                    <p class="lead">
-                        In Sri Sathya Sai Baba’s discourse during the World Youth Conference in 1997, He revealed the important role of Young Adults in fulfilling a noble mission:
-                    </p>
-                    <p class="lead">
-                        Young men and women, the world’s good fate, world’s progress is dependent on the transformation of the youth, today. Only when the youth transform themselves with good character, will the world be able to experience ideal virtues.- Sri Sathya Sai Baba, World Youth Conference, 1997
-                    </p>
-                    <p class="lead">
-                        The Sri Sathya Sai Young Adults Programme (SSSYAP) seeks to deliver this powerful message to the world through Young Adults worldwide. The Programme encourages men and women, between the ages of 18 and 40, to lead purposeful lives in service of their families, communities, and countries by learning and practicing the spiritual principles revealed by the life, teachings, and work of Sri Sathya Sai Baba. Primary importance is given to holistic character development through both personal transformation and selfless service.
-    
-                        The International Young Adults Committee (IYAC) was established under the auspices of the Prasanthi Council and works with its guidance. The IYAC comprises of the International Young Adults Coordinator, Deputy International Young Adults Coordinators, Subcommittee Leads, and the Zone and Deputy Zone Young Adults Coordinators. Together, they coordinate and lead the SSSYAP around the world.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="bg-body-tertiary m-3 overflow-hidden p-3" id="Contact">
-            <div class="row justify-content-between">
-                <div class="col-11">
-                    <h2 class="display-5">Contact us</h2>
-                </div>
-                <div class="col-1 align-self-center">
-                    <a class="btn btn-secondary" href="#body"><i class="bi bi-house"></i></a>
-                </div>
-            </div>
-            <div class="bg-body shadow-sm p-3" style="border-radius: 17px;">
-                <p>If you have any questions or would like more information, please send Email to</p>
-                <p>Email: <a href="mailto:cherryhillsaicenter@gmail.com">cherryhillsaicenter@gmail.com</a></p>
-            </div>
-        </div>
-    </main>
+      </div>
+    </div>
+  </section>
 
-    <footer class="container py-3">
-        <div class="row text-center">
-            <div class="col-12">
-                &copy; 2024 Cherry Hill Sai Center
-            </div>
+  <!-- ABOUT -->
+  <section class="section section--alt" id="about">
+    <div class="container about__grid">
+      <div class="about__content">
+        <span class="tag tag--saffron">About Us</span>
+        <h2>A Community Rooted in<br/>Love &amp; Service</h2>
+        <p>
+          The Cherry Hill Sai Center is dedicated to promoting spiritual growth and community service.
+          We follow the teachings of Sri Sathya Sai Baba and aim to create a loving and
+          compassionate environment.
+        </p>
+        <p>
+          Our center is part of the Sri Sathya Sai International Organization and serves devotees
+          and seekers of all backgrounds in the Cherry Hill, New Jersey area.
+        </p>
+      </div>
+      <div class="about__quote-card">
+        <p class="about__quote-text">
+          "To foster a loving community through spiritual education and selfless service."
+        </p>
+        <div class="about__quote-author">— Our Mission</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag tag--blue">Our Services</span>
+        <h2>Seva — Selfless Service</h2>
+        <p>Serving the community is at the heart of our center's mission, inspired by Baba's teaching: "Hands that serve are holier than lips that pray."</p>
+        <div class="section-header__line"></div>
+      </div>
+      <div class="services__grid">
+
+        <div class="service-card">
+          <div class="service-card__top">
+            <div class="service-card__icon service-card__icon--s">🥫</div>
+            <h3>Non-Perishable Food Donations</h3>
+            <p>
+              We collect and donate non-perishable food items to support those in need in our community.
+              All contributions are welcome and gratefully received.
+            </p>
+          </div>
+          <div class="service-card__footer">
+            <div class="service-card__detail">🤝 Ongoing — Contact us to contribute</div>
+          </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
+        <div class="service-card">
+          <div class="service-card__top">
+            <div class="service-card__icon service-card__icon--g">🍲</div>
+            <h3>Narayan Seva</h3>
+            <p>
+              Monthly service activity where center members come together to serve and feed those in need,
+              honoring the divine presence in every human being.
+            </p>
+          </div>
+          <div class="service-card__footer">
+            <div class="service-card__detail">📅 Third Saturday of the month</div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__top">
+            <div class="service-card__icon service-card__icon--b">🥪</div>
+            <h3>Philadelphia Sandwich Seva</h3>
+            <p>
+              Volunteers prepare and distribute sandwiches as a regular act of service and compassion
+              for those in need in the Philadelphia area.
+            </p>
+          </div>
+          <div class="service-card__footer">
+            <div class="service-card__detail">📅 Second &amp; Fourth Saturday of the month</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVOTION -->
+  <section class="devotion" id="devotion">
+    <div class="devotion__inner">
+      <div class="devotion__content">
+        <span class="tag tag--saffron">Weekly Devotion</span>
+        <h2>Typical Weekly<br/>Devotional Program</h2>
+        <p>
+          Our weekly devotional gatherings are open to all. Come as you are and join us in
+          bhajans, prayer, and spiritual study in the presence of Swami.
+        </p>
+        <div class="devotion__schedule">
+          <div class="devotion__slot">
+            <div class="devotion__slot-time">3:30 – 4:40 PM</div>
+            <div>
+              <div class="devotion__slot-name">Open Bhajans</div>
+              <div class="devotion__slot-desc">Devotional singing, closing prayers, and announcements</div>
+            </div>
+          </div>
+          <div class="devotion__slot">
+            <div class="devotion__slot-time">4:40 – 5:30 PM</div>
+            <div>
+              <div class="devotion__slot-name">Study Circle</div>
+              <div class="devotion__slot-desc">Group discussion and reflection on Sai Baba's teachings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="devotion__visual">
+        <div class="devotion__quote">
+          <p class="devotion__quote-text">
+            "Announcements and updates from the center are shared at the close of each weekly gathering."
+          </p>
+          <div class="devotion__quote-source">Center Updates — Weekly Program</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:24px 26px;">
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">📍 Location</div>
+          <div style="font-size:0.95rem;color:white;font-weight:600;margin-bottom:4px;">Unitarian Universalist Church</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);">401 Kings Hwy N, Cherry Hill, NJ 08034</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SSE -->
+  <section class="sse" id="sse">
+    <div class="sse__inner">
+      <div class="section-header">
+        <span class="tag tag--gold">Bal Vikas</span>
+        <h2>Sai Spiritual Education (SSE)</h2>
+        <p>Character-based education for children and young adults, grounded in Sai Baba's five human values.</p>
+        <div class="section-header__line"></div>
+      </div>
+      <div class="sse__grid">
+        <div>
+          <div class="sse__quote">
+            <p>"The end of education is character. Education without character is useless."</p>
+            <cite>— Sathya Sai Baba, Prashanthi Nilayam, November 20, 2001</cite>
+          </div>
+          <div class="sse__quote">
+            <p>"Bal Vikas (Sai Spiritual Education) is the primary basis of the great movement to restore righteousness (dharma) in the world. The ideal of the program is to raise a generation of boys and girls who have a clean and a clear conscience."</p>
+            <cite>— Sri Sathya Sai Baba</cite>
+          </div>
+          <div class="sse__certified">
+            <div class="icon">✅</div>
+            <p>All our teachers are <strong>certified in teaching SSE</strong>. For more information, contact us at <strong>cherryhillsaicenter@gmail.com</strong>.</p>
+          </div>
+        </div>
+        <div>
+          <div class="sse__timing">
+            <div class="sse__timing-header">Cherry Hill SSE Schedule</div>
+            <div class="sse__timing-sub">Every Sunday, 2:00 – 3:15 PM</div>
+            <div class="sse__groups">
+              <div class="sse__group"><div class="sse__group-dot"></div><div class="sse__group-name">Pre SSE (4 to 6 Years Old)</div></div>
+              <div class="sse__group"><div class="sse__group-dot"></div><div class="sse__group-name">Group 1 — 1st, 2nd, 3rd Graders</div></div>
+              <div class="sse__group"><div class="sse__group-dot"></div><div class="sse__group-name">Group 2 — 4th, 5th, 6th Graders</div></div>
+              <div class="sse__group"><div class="sse__group-dot"></div><div class="sse__group-name">Group 3 — 7th, 8th, 9th Graders</div></div>
+              <div class="sse__group"><div class="sse__group-dot"></div><div class="sse__group-name">Group 4 — 10th, 11th, 12th Graders</div></div>
+              <div class="sse__group"><div class="sse__group-dot" style="background:var(--saffron-light);"></div><div class="sse__group-name">Young Adults (18 to 40 yrs old)</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUNG ADULTS -->
+  <section class="ya" id="ya">
+    <div class="ya__inner">
+      <div class="ya__content">
+        <span class="tag tag--blue">Young Adults</span>
+        <h2>Sri Sathya Sai International<br/>Young Adults Program</h2>
+        <p>
+          The Sri Sathya Sai Young Adults Programme (SSSYAP) seeks to deliver Swami's powerful message
+          to the world through Young Adults worldwide.
+        </p>
+        <p>
+          The Programme encourages men and women, between the ages of 18 and 40, to lead purposeful
+          lives in service of their families, communities, and countries by learning and practicing
+          the spiritual principles revealed by the life, teachings, and work of Sri Sathya Sai Baba.
+        </p>
+        <p>
+          Primary importance is given to holistic character development through both personal
+          transformation and selfless service.
+        </p>
+        <div class="ya__baba-quote">
+          <p class="ya__baba-quote-text">
+            "Young men and women, the world's good fate, world's progress is dependent on the
+            transformation of the youth, today. Only when the youth transform themselves with
+            good character, will the world be able to experience ideal virtues."
+          </p>
+          <div class="ya__baba-quote-source">— Sri Sathya Sai Baba, World Youth Conference, 1997</div>
+        </div>
+      </div>
+      <div class="ya__highlights">
+        <div class="ya__highlight">
+          <div class="ya__highlight-icon ya__highlight-icon--s">🌱</div>
+          <div>
+            <div class="ya__highlight-title">Character Development</div>
+            <div class="ya__highlight-desc">Holistic growth through personal transformation and the practice of human values</div>
+          </div>
+        </div>
+        <div class="ya__highlight">
+          <div class="ya__highlight-icon ya__highlight-icon--b">🤝</div>
+          <div>
+            <div class="ya__highlight-title">Selfless Service</div>
+            <div class="ya__highlight-desc">Serving families, communities, and countries as an expression of love</div>
+          </div>
+        </div>
+        <div class="ya__highlight">
+          <div class="ya__highlight-icon ya__highlight-icon--g">🌍</div>
+          <div>
+            <div class="ya__highlight-title">Global Network</div>
+            <div class="ya__highlight-desc">Part of the International Young Adults Committee (IYAC) under the Prasanthi Council</div>
+          </div>
+        </div>
+        <div class="ya__highlight">
+          <div class="ya__highlight-icon ya__highlight-icon--s">📖</div>
+          <div>
+            <div class="ya__highlight-title">Spiritual Learning</div>
+            <div class="ya__highlight-desc">Studying and practicing the spiritual principles of Sri Sathya Sai Baba's teachings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPCOMING EVENTS / GOOGLE CALENDAR -->
+  <section class="events" id="events">
+    <div class="events__inner">
+      <div class="section-header">
+        <span class="tag tag--saffron">Upcoming Events</span>
+        <h2>Events &amp; Announcements</h2>
+        <p>Stay connected with our latest programs, celebrations, and seva activities.</p>
+        <div class="section-header__line"></div>
+      </div>
+      <div class="events__calendar-wrap">
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&mode=MONTH&src=Y2hlcnJ5aGlsbHNhaWNlbnRlckBnbWFpbC5jb20&src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%238e24aa&color=%230b8043" 
+                style="border:solid 1px #777"  
+                width="800" height="600" frameborder="0" 
+                scrolling="no"
+                title="Cherry Hill Sai Center Upcoming Events"
+                loading="lazy"
+                allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__info">
+        <span class="tag tag--blue">Contact Us</span>
+        <h2>We'd Love to<br/>Welcome You</h2>
+        <p>
+          If you have any questions or would like more information about our programs and activities,
+          please reach out — all are welcome.
+        </p>
+        <div class="contact__items">
+          <div class="contact__item">
+            <div class="contact__item-icon">📍</div>
+            <div>
+              <div class="contact__item-label">Location</div>
+              <div class="contact__item-value">Unitarian Universalist Church<br/>401 Kings Hwy N, Cherry Hill, NJ 08034</div>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">✉️</div>
+            <div>
+              <div class="contact__item-label">Email</div>
+              <div class="contact__item-value"><a href="mailto:cherryhillsaicenter@gmail.com">cherryhillsaicenter@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">📅</div>
+            <div>
+              <div class="contact__item-label">Weekly Devotional Program</div>
+              <div class="contact__item-value">Sundays · Bhajans 3:30 PM · Study Circle 4:40 PM</div>
+            </div>
+          </div>
+          <div class="contact__item">
+            <div class="contact__item-icon">📚</div>
+            <div>
+              <div class="contact__item-label">SSE Classes</div>
+              <div class="contact__item-value">Sundays · 2:00 – 3:15 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact__card">
+        <h3>Send Us a Message</h3>
+        <p>
+          For questions about SSE, seva opportunities, the Young Adults programme, or general
+          inquiries, we're happy to hear from you.
+        </p>
+        <a href="mailto:cherryhillsaicenter@gmail.com" class="contact__email-btn">
+          ✉️ &nbsp; cherryhillsaicenter@gmail.com
+        </a>
+        <div style="margin-top:24px;padding:18px;background:var(--saffron-pale);border-radius:12px;border:1px solid rgba(232,98,26,0.2);">
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--saffron);margin-bottom:6px;">🗺 Directions</div>
+          <a href="https://maps.google.com/?q=Unitarian+Universalist+Church+401+Kings+Hwy+N+Cherry+Hill+NJ+08034"
+             target="_blank" rel="noopener"
+             style="font-size:0.88rem;color:var(--blue);font-weight:600;">
+            401 Kings Hwy N, Cherry Hill, NJ 08034 →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <img src="https://www.sathyasai.org/sites/default/files/pages/organisation/logo/ssio-logo-english.png"
+                 alt="SSSIO Logo" style="width:44px;height:44px;object-fit:contain;" />
+            <h3 style="margin-bottom:0;">Sri Sathya Sai Center of Cherry Hill</h3>
+          </div>
+          <p>
+            Dedicated to promoting spiritual growth and community service, following the teachings
+            of Sri Sathya Sai Baba. Part of the Sri Sathya Sai International Organization.
+          </p>
+          <div class="footer__mantra">"Love All, Serve All. Help Ever, Hurt Never."</div>
+        </div>
+        <div class="footer__col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#devotion">Weekly Bhajans</a></li>
+            <li><a href="#devotion">Study Circle</a></li>
+            <li><a href="#sse">Sai Spiritual Education</a></li>
+            <li><a href="#ya">Young Adults (SSSYAP)</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Seva</h4>
+          <ul>
+            <li><a href="#services">Non-Perishable Food Donations</a></li>
+            <li><a href="#services">Narayan Seva</a></li>
+            <li><a href="#services">Philadelphia Sandwich Seva</a></li>
+            <li><a href="#contact">Volunteer With Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__copy">© 2024 Cherry Hill Sai Center. All rights reserved.</div>
+        <div class="footer__badge">SSSIO · Cherry Hill, NJ</div>
+      </div>
+    </div>
+  </footer>
+
 </body>
-
 </html>
