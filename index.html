@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ƒ<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -619,6 +619,54 @@
       .footer__top { grid-template-columns: 1fr; }
       .nav__links { display: none; }
     }
+
+    /* ===== HEALTH FAIR BANNER ===== */
+    .hero__inner { grid-template-columns: 1.35fr auto 1fr; gap: 32px; }
+    .hf-banner {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 6px; padding: 26px 24px;
+      background: linear-gradient(160deg, rgba(224,119,20,0.22), rgba(201,150,10,0.12));
+      border: 1px solid rgba(240,192,48,0.45); border-radius: 18px;
+      box-shadow: 0 0 40px rgba(224,119,20,0.18);
+      color: white; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .hf-banner:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(224,119,20,0.35); }
+    .hf-banner__label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold-light);
+    }
+    .hf-banner__title {
+      font-family: 'Open Sans', sans-serif; font-weight: 800;
+      font-size: 1.5rem; line-height: 1.15; color: white; white-space: nowrap;
+    }
+    .hf-banner__date {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.15rem; color: var(--gold-light);
+    }
+    .hf-banner__cta {
+      margin-top: 10px; padding: 8px 16px; border-radius: 32px;
+      background: linear-gradient(135deg, var(--saffron), #D04E0E);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
+    }
+    .hf-modal {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(10,15,40,0.85); padding: 24px;
+      align-items: center; justify-content: center;
+    }
+    .hf-modal:target { display: flex; }
+    .hf-modal__backdrop { position: absolute; inset: 0; }
+    .hf-modal__box { position: relative; max-width: 640px; width: 100%; max-height: 100%; overflow: auto; }
+    .hf-modal__box img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .hf-modal__close {
+      position: absolute; top: 8px; right: 8px; width: 36px; height: 36px;
+      border-radius: 50%; background: rgba(0,0,0,0.6); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; line-height: 1;
+    }
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; }
+      .hf-banner { max-width: 320px; margin: 0 auto; }
+    }
   </style>
 </head>
 <body>
@@ -666,6 +714,12 @@
           <a href="#contact" class="btn btn--outline">Get in Touch</a>
         </div>
       </div>
+      <a href="images/Heath Fair.png" class="hf-banner">
+        <span class="hf-banner__label">Free Event</span>
+        <span class="hf-banner__title">Health Fair</span>
+        <span class="hf-banner__date">October 17</span>
+        <span class="hf-banner__cta">View Flyer for Details →</span>
+      </a>
       <div class="hero__visual">
         <div class="hero__emblem">
           <img src="https://www.sathyasai.org/sites/default/files/pages/organisation/logo/ssio-logo-english.png"
@@ -1036,5 +1090,14 @@
     </div>
   </footer>
 
+
+  <!-- Health Fair flyer popup -->
+  <div id="health-fair-flyer" class="hf-modal">
+    <a href="#" class="hf-modal__backdrop" aria-label="Close"></a>
+    <div class="hf-modal__box">
+      <a href="#" class="hf-modal__close" aria-label="Close">×</a>
+      <img src="Heath_Fair.png" alt="Free Medical, Dental and Vision Screenings – Saturday, October 17, 2026, 11 AM to 1 PM, The Extended Hands Ministry, 275 Holeman St, Mt Holly, NJ" />
+    </div>
+  </div>
 </body>
 </html>
